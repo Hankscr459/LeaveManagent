@@ -39,8 +39,8 @@ namespace LeaveManagent.Controllers
             {
                 return NotFound();
             }
-
-            return View(leaveType);
+            var leaveTypeVM = mapper.Map<LeaveTypeVM>(leaveType);
+            return View(leaveTypeVM);
         }
 
         // GET: LeaveTypes/Create
