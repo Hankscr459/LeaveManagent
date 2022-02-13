@@ -1,5 +1,7 @@
 using LeaveManagent.Configurations;
+using LeaveManagent.contracts;
 using LeaveManagent.Data;
+using LeaveManagent.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,11 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<Employee>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
+// Singleton 整個 Process 只建立一個 Instance，任何時候都共用它。
+builder.Services.AddSingleton(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+// Scoped 在網頁 Request 處理過程(指接到瀏覽器請求到回傳結果前的執行期間)共用一個 Instance。
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<ILeaveTypeRepository, LeaveTypeRepository>();
 builder.Services.AddAutoMapper(typeof(MapperConfigs));
 builder.Services.AddControllersWithViews();
 
