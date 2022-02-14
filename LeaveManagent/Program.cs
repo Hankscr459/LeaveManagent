@@ -3,6 +3,7 @@ using LeaveManagent.contracts;
 using LeaveManagent.Data;
 using LeaveManagent.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,9 +15,9 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<Employee>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
-// Singleton ¾ã­Ó Process ¥u«Ø¥ß¤@­Ó Instance¡A¥ô¦ó®É­Ô³£¦@¥Î¥¦¡C
+// Singleton æ•´å€‹ Process åªå»ºç«‹ä¸€å€‹ Instanceï¼Œä»»ä½•æ™‚å€™éƒ½å…±ç”¨å®ƒã€‚
 builder.Services.AddSingleton(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-// Scoped ¦bºô­¶ Request ³B²z¹Lµ{(«ü±µ¨ìÂsÄı¾¹½Ğ¨D¨ì¦^¶Çµ²ªG«eªº°õ¦æ´Á¶¡)¦@¥Î¤@­Ó Instance¡C
+// Scoped åœ¨ç¶²é  Request è™•ç†éç¨‹(æŒ‡æ¥åˆ°ç€è¦½å™¨è«‹æ±‚åˆ°å›å‚³çµæœå‰çš„åŸ·è¡ŒæœŸé–“)å…±ç”¨ä¸€å€‹ Instanceã€‚
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<ILeaveTypeRepository, LeaveTypeRepository>();
 builder.Services.AddAutoMapper(typeof(MapperConfigs));
