@@ -14,6 +14,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<Employee>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 // Singleton 整個 Process 只建立一個 Instance，任何時候都共用它。
 builder.Services.AddSingleton(typeof(IGenericRepository<>), typeof(GenericRepository<>));
