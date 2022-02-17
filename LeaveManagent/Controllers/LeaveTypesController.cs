@@ -130,5 +130,11 @@ namespace LeaveManagent.Controllers
         {
             return await leaveTypeRepository.Exists(id);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AllocateLeave(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
