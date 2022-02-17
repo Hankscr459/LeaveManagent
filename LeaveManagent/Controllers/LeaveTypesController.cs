@@ -5,9 +5,11 @@ using LeaveManagent.Data;
 using AutoMapper;
 using LeaveManagent.Models;
 using LeaveManagent.contracts;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LeaveManagent.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class LeaveTypesController : Controller
     {
         private readonly ILeaveTypeRepository leaveTypeRepository;
