@@ -18,6 +18,12 @@ namespace LeaveManagent.Repositories
             return entity;
         }
 
+        public async Task AddRangeAsync(List<T> entitues)
+        {
+            await context.AddRangeAsync(entitues);
+            await context.SaveChangesAsync();
+        }
+
         public async Task DeleteAsync(int id)
         {
             var entity = await GetAsync(id);
