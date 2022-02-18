@@ -21,6 +21,8 @@ builder.Services.AddSingleton(typeof(IGenericRepository<>), typeof(GenericReposi
 // Scoped 在網頁 Request 處理過程(指接到瀏覽器請求到回傳結果前的執行期間)共用一個 Instance。
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<ILeaveTypeRepository, LeaveTypeRepository>();
+builder.Services.AddScoped<ILeaveAllocationRepository, LeaveAllocationRepository>();
+
 builder.Services.AddAutoMapper(typeof(MapperConfigs));
 builder.Services.AddControllersWithViews();
 
