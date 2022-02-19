@@ -8,5 +8,6 @@ namespace LeaveManagent.contracts
         Task LeaveAllocation(int leaveTypeId);
         Task<bool> AllocationExists(string employeeId, int leaveTypeId, int period);
         Task<EmployeeAllocationVM> GetEmployeeAllocations(string employeeId);
+        Task<LeaveAllocationEditVM> GetEmployeeAllocation(int id);
     }
 }
