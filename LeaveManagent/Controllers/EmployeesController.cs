@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LeaveManagent.Constants;
+using LeaveManagent.contracts;
 using LeaveManagent.Data;
 using LeaveManagent.Models;
 using Microsoft.AspNetCore.Http;
@@ -11,11 +12,16 @@ namespace LeaveManagent.Controllers
     public class EmployeesController : Controller
     {
         private UserManager<Employee> userManager;
+        private readonly ILeaveAllocationRepository leaveAllocationRepository;
         private readonly IMapper mapper;
 
-        public EmployeesController(UserManager<Employee> userManager, IMapper mapper)
+        public EmployeesController(
+            UserManager<Employee> userManager, 
+            ILeaveAllocationRepository leaveAllocationRepository,
+            IMapper mapper)
         {
             this.userManager = userManager;
+            this.leaveAllocationRepository = leaveAllocationRepository;
             this.mapper = mapper;
         }
         // GET: EmployeesController
@@ -27,9 +33,10 @@ namespace LeaveManagent.Controllers
         }
 
         // GET: EmployeesController/ViewAllocations/5
-        public ActionResult ViewAllocations(int id)
+        public async Task<ActionResult> ViewAllocations(string id)
         {
-            return View();
+            var model = await leaveAllocationRepository.GetEmployeeAllocations(id);
+            return View(model);
         }
 
         // GET: EmployeesController/Create
