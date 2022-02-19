@@ -1,6 +1,7 @@
 ﻿using LeaveManagent.Configurations.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using LeaveManagent.Models;
 
 namespace LeaveManagent.Data
 {

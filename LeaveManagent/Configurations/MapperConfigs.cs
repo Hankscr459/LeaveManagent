@@ -9,6 +9,7 @@ namespace LeaveManagent.Configurations
         public MapperConfigs()
         {
             CreateMap<LeaveType, LeaveTypeVM>().ReverseMap();
+            CreateMap<Employee, EmployeeListVM>().ReverseMap();
         }
     }
 }
