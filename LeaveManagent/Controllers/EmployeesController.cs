@@ -42,27 +42,6 @@ namespace LeaveManagent.Controllers
             return View(model);
         }
 
-        // GET: EmployeesController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: EmployeesController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         // GET: EmployeesController/EditAllocation/5
         public async Task<ActionResult> EditAllocation(int id)
         {
@@ -83,15 +62,10 @@ namespace LeaveManagent.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var leaveAllocation = await leaveAllocationRepository.GetAsync(model.Id);
-                    if (leaveAllocation == null)
+                    if (await leaveAllocationRepository.UpdateEmployeeAllocation(model))
                     {
-                        return NotFound();
+                        return RedirectToAction(nameof(ViewAllocations), new { id = model.EmployeeId });
                     }
-                    leaveAllocation.Period = model.Period;
-                    leaveAllocation.NumberOfDays = model.NumberOfDays;
-                    await leaveAllocationRepository.UpdateAsync(leaveAllocation);
-                    return RedirectToAction(nameof(ViewAllocations), new { id = model.EmployeeId });
                 }
             }
             catch (Exception ex)
@@ -101,27 +75,6 @@ namespace LeaveManagent.Controllers
             model.Employee = mapper.Map<EmployeeListVM>(await userManager.FindByIdAsync(model.EmployeeId));
             model.LeaveType = mapper.Map<LeaveTypeVM>(await leaveTypeRepository.GetAsync(model.LeaveTypeId));
             return View(model);
-        }
-
-        // GET: EmployeesController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: EmployeesController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }
