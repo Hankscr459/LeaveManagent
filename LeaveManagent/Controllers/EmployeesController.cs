@@ -13,15 +13,18 @@ namespace LeaveManagent.Controllers
     {
         private UserManager<Employee> userManager;
         private readonly ILeaveAllocationRepository leaveAllocationRepository;
+        private readonly ILeaveTypeRepository leaveTypeRepository;
         private readonly IMapper mapper;
 
         public EmployeesController(
             UserManager<Employee> userManager, 
             ILeaveAllocationRepository leaveAllocationRepository,
+            ILeaveTypeRepository leaveTypeRepository,
             IMapper mapper)
         {
             this.userManager = userManager;
             this.leaveAllocationRepository = leaveAllocationRepository;
+            this.leaveTypeRepository = leaveTypeRepository;
             this.mapper = mapper;
         }
         // GET: EmployeesController
@@ -60,7 +63,7 @@ namespace LeaveManagent.Controllers
             }
         }
 
-        // GET: EmployeesController/EditAllocations/5
+        // GET: EmployeesController/EditAllocation/5
         public async Task<ActionResult> EditAllocation(int id)
         {
             var model = await leaveAllocationRepository.GetEmployeeAllocation(id);
@@ -71,19 +74,33 @@ namespace LeaveManagent.Controllers
             return View(model);
         }
 
-        // POST: EmployeesController/Edit/5
+        // POST: EmployeesController/EditAllocation/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> EditAllocation(int id, LeaveAllocationEditVM model)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    var leaveAllocation = await leaveAllocationRepository.GetAsync(model.Id);
+                    if (leaveAllocation == null)
+                    {
+                        return NotFound();
+                    }
+                    leaveAllocation.Period = model.Period;
+                    leaveAllocation.NumberOfDays = model.NumberOfDays;
+                    await leaveAllocationRepository.UpdateAsync(leaveAllocation);
+                    return RedirectToAction(nameof(ViewAllocations), new { id = model.EmployeeId });
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError(string.Empty, "An Error Has Occurred. Please Try Again Later");
             }
+            model.Employee = mapper.Map<EmployeeListVM>(await userManager.FindByIdAsync(model.EmployeeId));
+            model.LeaveType = mapper.Map<LeaveTypeVM>(await leaveTypeRepository.GetAsync(model.LeaveTypeId));
+            return View(model);
         }
 
         // GET: EmployeesController/Delete/5

@@ -50,10 +50,10 @@
                         Allocation Days <span class="badge nav-pills bg-secondary">@allocation.LeaveType.DefaultDays</span>
                     </button>
                     <button type="button" class="btn btn-primary">
-                        Remaining Days <span class="badge nav-pills bg-primary">@allocation.NumbeOfDays</span>
+                        Remaining Days <span class="badge nav-pills bg-secondary">@allocation.NumberOfDays</span>
                     </button>
+                    <a class="btn btn-info" asp-action="EditAllocation" asp-route-id="@allocation.Id"><i class="fas fa-pencil-alt"></i> Edit Allocation</a>
                 </h6>
-                <a class="btn btn-primary" asp-action="EditAllocation" asp-route-id="@allocation.Id"><i class="fas fa-pencil-alt"></i> Edit Allocation</a>
             </li>
         }
     </ul>
