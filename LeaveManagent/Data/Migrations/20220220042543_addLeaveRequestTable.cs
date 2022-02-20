@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LeaveManagent.Data.Migrations
 {
-    public partial class addLeaveRequestsTable : Migration
+    public partial class addLeaveRequestTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,7 +19,7 @@ namespace LeaveManagent.Data.Migrations
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LeaveTypeId = table.Column<int>(type: "int", nullable: false),
                     DateRequested = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    RequestComponent = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RequestComments = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Approved = table.Column<bool>(type: "bit", nullable: true),
                     Cancelled = table.Column<bool>(type: "bit", nullable: false),
                     RequestingEmployeeId = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -42,28 +42,28 @@ namespace LeaveManagent.Data.Migrations
                 keyColumn: "Id",
                 keyValue: "bb115775-33b1-5434-34a1-ad1b12beb5fa",
                 column: "ConcurrencyStamp",
-                value: "2c6fd60f-ee14-44b2-b292-008d7b43f35d");
+                value: "15605138-885f-4284-b374-2a5d7e27832d");
 
             migrationBuilder.UpdateData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
                 keyValue: "da115585-33b1-1354-94b3-5d6bcabeb51a",
                 column: "ConcurrencyStamp",
-                value: "85616c4e-ca27-4a6f-bb4b-8d77319b9c8d");
+                value: "8f49f50a-9560-4b4b-ae6c-4056fa458146");
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "43122545-c122-115f-c66a-4a6a11b81a1c",
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "3b30ac33-550f-4dec-a8f2-1818ebd50863", "AQAAAAEAACcQAAAAELCJsEpbfOaVY02QuYIUFp3gvcfSzP67rCpqdwZQeWrzzRuOSOwkF9uiSYSE3VVzvw==", "d2980e67-02a6-465e-be2f-cad2da273ef6" });
+                values: new object[] { "ef9aa7f9-bc48-48ec-a073-1e7c0cb3bcad", "AQAAAAEAACcQAAAAEEAS0Ry/jdFmQouxLRrWiVFy+faAkY3Z+LPSn8aBPVKd0HDJ8AB4qDZd+69uaZGwyQ==", "e14ded4e-fc36-4dcf-8cd1-16828b626a9a" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "af1155f5-b121-225a-a43d-5a6a11beb522",
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "2d6eb862-c3c0-4272-9fe7-02d3209bff42", "AQAAAAEAACcQAAAAEKW0vTtrK0mH+3LkFD0rUaY22tvFCDwLyIra/lJouympPzoxHyu5m+Pfe5+S8M+Z2A==", "b89154b7-01e6-4789-89a4-ad8725e255aa" });
+                values: new object[] { "77761ced-f898-4489-93f5-b97097e351ec", "AQAAAAEAACcQAAAAEMeD4Yt6ych7mVYjRNstlACWCLFpaITLVFLL7+BUgkY+0lW9rMC160kxifkfsyVjIg==", "ee45654f-627a-415c-a0bf-3e9f5f614430" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_LeaveRequests_LeaveTypeId",
