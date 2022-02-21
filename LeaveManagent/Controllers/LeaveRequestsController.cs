@@ -58,6 +58,12 @@ namespace LeaveManagent.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> MyLeave()
+        {
+            var model = await leaveRequestRepository.GetMyLeaveDetails();
+            return View(model);
+        }
+
         // POST: LeaveRequests/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.

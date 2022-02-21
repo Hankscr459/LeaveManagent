@@ -37,7 +37,8 @@ namespace LeaveManagent.Repositories
         {
             var allocations = await context.LeaveAllocations
                                 .Include(q => q.LeaveType)
-                                .Where(q => q.EmployeeId == employeeId).ToListAsync();
+                                .Where(q => q.EmployeeId == employeeId)
+                                .ToListAsync();
             var employee = await userManager.FindByIdAsync(employeeId);
             var employeeAllocationModel = mapper.Map<EmployeeAllocationVM>(employee); 
             employeeAllocationModel.LeaveAllocations = mapper.Map<List<LeaveAllocationVM>>(allocations);
